@@ -130,6 +130,7 @@
 					</mainClass>
 					<arguments>
 						<argument>server</argument>
+						<argument>conf/application.yaml</argument>
 					</arguments>
 				</configuration>
 			</plugin>
