@@ -1,8 +1,13 @@
 package com.redhat.examples.dropwizard;
 
+import javax.ws.rs.client.Client;
+
+import com.redhat.examples.dropwizard.resources.GreeterRestResource;
+import com.redhat.examples.dropwizard.resources.GreeterSayingFactory;
 import com.redhat.examples.dropwizard.resources.HolaRestResource;
 
 import io.dropwizard.Application;
+import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
@@ -29,6 +34,14 @@ public class HolaDropwizardApplication extends Application<HolaDropwizardConfigu
 	@Override
 	public void run(final HolaDropwizardConfiguration configuration, final Environment environment) {
 		environment.jersey().register(new HolaRestResource(configuration.getSayingFactory().getSaying()));
+
+		// greeter service
+		GreeterSayingFactory greeterSayingFactory = configuration.getGreeterSayingFactory();
+		Client greeterClient = new JerseyClientBuilder(environment).using(greeterSayingFactory.getJerseyClientConfig())
+				.build("greeterClient");
+
+		environment.jersey().register(new GreeterRestResource(greeterSayingFactory.getSaying(),
+				greeterSayingFactory.getHost(), greeterSayingFactory.getPort(), greeterClient));
 
 	}
 
