@@ -1,4 +1,4 @@
-package com.redhat.examples.dropwizard.api;
+package com.redhat.examples.wfswarm.rest;
 
 public class BackendDTO {
 
