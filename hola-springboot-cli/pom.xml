@@ -39,6 +39,8 @@
 		<fabric8.env.GREETING_BACKENDSERVICEHOST>backend</fabric8.env.GREETING_BACKENDSERVICEHOST>
 		<fabric8.env.GREETING_BACKENDSERVICEPORT>80</fabric8.env.GREETING_BACKENDSERVICEPORT>
 		<hystrix.version>1.5.1</hystrix.version>
+		<ribbon.version>2.1.2</ribbon.version>
+		<kubeflix.version>1.0.15</kubeflix.version>
 	</properties>
 
 	<profiles>
@@ -89,6 +91,23 @@
 			<groupId>com.netflix.hystrix</groupId>
 			<artifactId>hystrix-core</artifactId>
 			<version>${hystrix.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.fabric8.kubeflix</groupId>
+			<artifactId>ribbon-discovery</artifactId>
+			<version>${kubeflix.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.netflix.ribbon</groupId>
+			<artifactId>ribbon-core</artifactId>
+			<version>${ribbon.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.netflix.ribbon</groupId>
+			<artifactId>ribbon-loadbalancer</artifactId>
+			<version>${ribbon.version}</version>
 		</dependency>
 	</dependencies>
 
