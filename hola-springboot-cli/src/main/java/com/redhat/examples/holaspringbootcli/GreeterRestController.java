@@ -19,12 +19,18 @@ public class GreeterRestController {
 
 	@RequestMapping(value = "/greeting", method = RequestMethod.GET, produces = "text/plain")
 	public String greeting() {
-		String backendServiceUrl = String.format("http://%s:%d/api/backend?greeting={greeting}", backendServiceHost,
-				backendServicePort);
+		String backendServiceUrl = String.format("http://%s:%d/api/backend?greeting={greeting}", backendServiceHost, backendServicePort);
 
 		System.out.println("Sending to: " + backendServiceUrl);
 		BackendDTO response = template.getForObject(backendServiceUrl, BackendDTO.class, saying);
 
+		return response.getGreeting() + " at host: " + response.getIp();
+	}
+
+	@RequestMapping(value = "/greeting-hystrix", method = RequestMethod.GET, produces = "text/plain")
+	public String greetingHystrix() {
+		BackendCommand backendCommand = new BackendCommand(backendServiceHost, backendServicePort).withSaying(saying).withTemplate(template);
+		BackendDTO response = backendCommand.execute();
 		return response.getGreeting() + " at host: " + response.getIp();
 	}
 

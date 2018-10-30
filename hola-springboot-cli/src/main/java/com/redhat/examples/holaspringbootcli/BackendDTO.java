@@ -3,7 +3,7 @@ package com.redhat.examples.holaspringbootcli;
 public class BackendDTO {
 
 	private String greeting;
-	// private long time; //Excluding time because it is not relevant
+	// private long time; //We can exclude time because it is not relevant
 	private String ip;
 	private String otherAttribute;
 
